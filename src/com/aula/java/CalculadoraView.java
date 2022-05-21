@@ -41,7 +41,7 @@ public class CalculadoraView extends JFrame implements ActionListener {
 
 	String memoria1 = "";
 	String memoria2 = "";
-	String signo = "";
+	String sinal = "";
 	String mostra_resultado;
 	float resultadoSoma = 0;
 	float resultadoResta = 0;
@@ -278,7 +278,7 @@ public class CalculadoraView extends JFrame implements ActionListener {
 				
 			} else {
 
-				signo = "Soma";
+				sinal = "Soma";
 				memoria1 = texField_insertDados.getText();
 				numero1 = Float.parseFloat(memoria1);
 				label_mostraValores_Acima.setText("" + texField_insertDados.getText() + " +");
@@ -297,7 +297,7 @@ public class CalculadoraView extends JFrame implements ActionListener {
 
 			} else {
 
-				signo = "Subtracao";
+				sinal = "Subtracao";
 				label_mostraValores_Acima.setText("" + texField_insertDados.getText() + "-");
 				memoria1 = texField_insertDados.getText();
 				numero1 = Float.parseFloat(memoria1);
@@ -315,7 +315,7 @@ public class CalculadoraView extends JFrame implements ActionListener {
 			
 			} else {
 
-				signo = "Multiplicacao";
+				sinal = "Multiplicacao";
 				label_mostraValores_Acima.setText("" + texField_insertDados.getText() + " x");
 				memoria1 = texField_insertDados.getText();
 				numero1 = Float.parseFloat(memoria1);
@@ -334,7 +334,7 @@ public class CalculadoraView extends JFrame implements ActionListener {
 
 			} else {
 
-				signo = "Divisao";
+				sinal = "Divisao";
 				label_mostraValores_Acima.setText("" + texField_insertDados.getText() + " /");
 				memoria1 = texField_insertDados.getText();
 				numero1 = Float.parseFloat(memoria1);
@@ -354,7 +354,7 @@ public class CalculadoraView extends JFrame implements ActionListener {
 
 			} else {
 
-				signo = "Raiz";
+				sinal = "Raiz";
 				label_mostraValores_Acima.setText("" + texField_insertDados.getText() + " \u221A");
 				memoria1 = texField_insertDados.getText();
 				numero1 = Float.parseFloat(memoria1);
@@ -373,7 +373,7 @@ public class CalculadoraView extends JFrame implements ActionListener {
 
 			label_mostraValores_Acima.setText("" + texField_insertDados.getText());
 
-			signo = "Soma";
+			sinal = "Soma";
 
 			numero1 = 0;
 			numero2 = 0;
@@ -389,18 +389,14 @@ public class CalculadoraView extends JFrame implements ActionListener {
 	}
 
 	public void operacao() {
-		if (signo == "Soma") {
-
+		if (sinal == "Soma") {
 			memoria2 = texField_insertDados.getText();
-
 			numero2 = Float.parseFloat(memoria2);
-
 			resultadoSoma = numero1 + numero2;
-
-
+			mostra_resultado = Float.toString(resultadoSoma);
 			texField_insertDados.setText(mostra_resultado);
 
-		} else if (signo == "Subtracao") {
+		} else if (sinal == "Subtracao") {
 
 			memoria2 = texField_insertDados.getText();
 			numero2 = Float.parseFloat(memoria2);
@@ -408,7 +404,7 @@ public class CalculadoraView extends JFrame implements ActionListener {
 			mostra_resultado = Float.toString(resultadoResta);
 			texField_insertDados.setText(mostra_resultado);
 
-		} else if (signo == "Multiplicacao") {
+		} else if (sinal == "Multiplicacao") {
 
 			memoria2 = texField_insertDados.getText();
 			numero2 = Float.parseFloat(memoria2);
@@ -416,7 +412,7 @@ public class CalculadoraView extends JFrame implements ActionListener {
 			mostra_resultado = Float.toString(resultadoMultiplicacion);
 			texField_insertDados.setText(mostra_resultado);
 
-		} else if (signo == "Divisao") {
+		} else if (sinal == "Divisao") {
 
 			memoria2 = texField_insertDados.getText();
 			numero2 = Float.parseFloat(memoria2);
@@ -424,7 +420,7 @@ public class CalculadoraView extends JFrame implements ActionListener {
 			mostra_resultado = Float.toString(resultadoDivision);
 			texField_insertDados.setText(mostra_resultado);
 
-		} else if (signo == "Raiz") {
+		} else if (sinal == "Raiz") {
 		     //memoria2 = texFieldmostrar.getText(); 
 		     //numero2=Float.parseFloat(memoria2);
 			resultadoRaiz = (float) (Math.sqrt(numero1));
