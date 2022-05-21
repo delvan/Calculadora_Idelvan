@@ -31,7 +31,7 @@ public class CalculadoraView extends JFrame implements ActionListener {
 	private JButton button11;
 	private JButton buttonIgual;
 	private JButton buttonSoma;
-	private JButton buttonResto;
+	private JButton buttonSubtracao;
 	private JButton buttonMultipli;
 	private JButton buttonDivisao;
 	private JButton buttonRaiz;
@@ -82,6 +82,7 @@ public class CalculadoraView extends JFrame implements ActionListener {
 		setLocationRelativeTo(null);
 
 		texField_insertDados = new JTextField();
+		texField_insertDados.setEditable(false);
 		texField_insertDados.setFont(new Font("Tahoma", Font.BOLD, 14));
 		texField_insertDados.setForeground(Color.BLACK);
 
@@ -174,11 +175,11 @@ public class CalculadoraView extends JFrame implements ActionListener {
 		buttonSoma.setBounds(276, 99, 62, 23);
 		contentPane.add(buttonSoma);
 
-		buttonResto = new JButton("-");
-		buttonResto.setFont(new Font("Tahoma", Font.BOLD, 18));
-		buttonResto.addActionListener(this);
-		buttonResto.setBounds(276, 133, 62, 23);
-		contentPane.add(buttonResto);
+		buttonSubtracao = new JButton("-");
+		buttonSubtracao.setFont(new Font("Tahoma", Font.BOLD, 18));
+		buttonSubtracao.addActionListener(this);
+		buttonSubtracao.setBounds(276, 133, 62, 23);
+		contentPane.add(buttonSubtracao);
 
 		buttonMultipli = new JButton("x");
 		buttonMultipli.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -212,55 +213,55 @@ public class CalculadoraView extends JFrame implements ActionListener {
 		if (((JButton) e.getSource()).equals(button1)) {
 			texField_insertDados.setText("" + texField_insertDados.getText() + "1");
 			label_mostraValores_Acima.setText("" + texField_insertDados.getText());
-			button11.setEnabled(true);
+			
 		}
 
 		if (((JButton) e.getSource()).equals(button2)) {
 			texField_insertDados.setText("" + texField_insertDados.getText() + "2");
 			label_mostraValores_Acima.setText("" + texField_insertDados.getText());
-			button11.setEnabled(true);
+			
 
 		}
 		if (((JButton) e.getSource()).equals(button3)) {
 			texField_insertDados.setText("" + texField_insertDados.getText() + "3");
 			label_mostraValores_Acima.setText("" + texField_insertDados.getText());
-			button11.setEnabled(true);
+		
 		}
 
 		if (((JButton) e.getSource()).equals(button4)) {
 			texField_insertDados.setText("" + texField_insertDados.getText() + "4");
 			label_mostraValores_Acima.setText("" + texField_insertDados.getText());
-			button11.setEnabled(true);
+			
 		}
 		if (((JButton) e.getSource()).equals(button5)) {
 			texField_insertDados.setText("" + texField_insertDados.getText() + "5");
 			label_mostraValores_Acima.setText("" + texField_insertDados.getText());
-			button11.setEnabled(true);
+			
 		}
 		if (((JButton) e.getSource()).equals(button6)) {
 			texField_insertDados.setText("" + texField_insertDados.getText() + "6");
 			label_mostraValores_Acima.setText("" + texField_insertDados.getText());
-			button11.setEnabled(true);
+			
 		}
 		if (((JButton) e.getSource()).equals(button7)) {
 			texField_insertDados.setText("" + texField_insertDados.getText() + "7");
 			label_mostraValores_Acima.setText("" + texField_insertDados.getText());
-			button11.setEnabled(true);
+		
 		}
 		if (((JButton) e.getSource()).equals(button8)) {
 			texField_insertDados.setText("" + texField_insertDados.getText() + "8");
 			label_mostraValores_Acima.setText("" + texField_insertDados.getText());
-			button11.setEnabled(true);
+			
 		}
 		if (((JButton) e.getSource()).equals(button9)) {
 			texField_insertDados.setText("" + texField_insertDados.getText() + "9");
 			label_mostraValores_Acima.setText("" + texField_insertDados.getText());
-			button11.setEnabled(true);
+			
 		}
 		if (((JButton) e.getSource()).equals(button10)) {
 			texField_insertDados.setText("" + texField_insertDados.getText() + "0");
 			label_mostraValores_Acima.setText("" + texField_insertDados.getText());
-			button11.setEnabled(true);
+			
 		}
 		if (((JButton) e.getSource()).equals(button11) && button11 != null) {
 			texField_insertDados.setText("" + texField_insertDados.getText() + ".");
@@ -274,34 +275,30 @@ public class CalculadoraView extends JFrame implements ActionListener {
 
 				System.runFinalization();
 				texField_insertDados.setText("");
-				button11.setEnabled(false);
+				
 			} else {
 
 				signo = "Soma";
-
 				memoria1 = texField_insertDados.getText();
-
 				numero1 = Float.parseFloat(memoria1);
-
 				label_mostraValores_Acima.setText("" + texField_insertDados.getText() + " +");
-
 				texField_insertDados.setText("");
 				button11.setEnabled(true);
 
 			}
 		}
 
-		if (((JButton) e.getSource()).equals(buttonResto)) {
+		if (((JButton) e.getSource()).equals(buttonSubtracao)) {
 			if (texField_insertDados.getText().equals("")) {
 
 				System.runFinalization();
 				texField_insertDados.setText("");
-				button11.setEnabled(false);
+			
 
 			} else {
 
 				signo = "Subtracao";
-				label_mostraValores_Acima.setText("" + texField_insertDados.getText() + " -");
+				label_mostraValores_Acima.setText("" + texField_insertDados.getText() + "-");
 				memoria1 = texField_insertDados.getText();
 				numero1 = Float.parseFloat(memoria1);
 				texField_insertDados.setText("");
@@ -315,8 +312,7 @@ public class CalculadoraView extends JFrame implements ActionListener {
 
 				System.runFinalization();
 				texField_insertDados.setText("");
-				button11.setEnabled(false);
-
+			
 			} else {
 
 				signo = "Multiplicacao";
@@ -334,7 +330,7 @@ public class CalculadoraView extends JFrame implements ActionListener {
 
 				System.runFinalization();
 				texField_insertDados.setText("");
-				button11.setEnabled(false);
+	
 
 			} else {
 
@@ -354,7 +350,7 @@ public class CalculadoraView extends JFrame implements ActionListener {
 
 				System.runFinalization();
 				texField_insertDados.setText("");
-				button11.setEnabled(false);
+			
 
 			} else {
 
@@ -377,10 +373,12 @@ public class CalculadoraView extends JFrame implements ActionListener {
 
 			label_mostraValores_Acima.setText("" + texField_insertDados.getText());
 
-			signo = "Suma";
+			signo = "Soma";
 
 			numero1 = 0;
 			numero2 = 0;
+			
+			button11.setEnabled(true);
 		}
 		if (((JButton) e.getSource()).equals(buttonlimpar)) {
 
@@ -402,7 +400,7 @@ public class CalculadoraView extends JFrame implements ActionListener {
 
 			texField_insertDados.setText(mostra_resultado);
 
-		} else if (signo == "Resto") {
+		} else if (signo == "Subtracao") {
 
 			memoria2 = texField_insertDados.getText();
 			numero2 = Float.parseFloat(memoria2);
@@ -427,8 +425,8 @@ public class CalculadoraView extends JFrame implements ActionListener {
 			texField_insertDados.setText(mostra_resultado);
 
 		} else if (signo == "Raiz") {
-//		     memoria2 = texFieldmostrar.getText(); 
-//		     numero2=Float.parseFloat(memoria2);//////// 
+		     //memoria2 = texFieldmostrar.getText(); 
+		     //numero2=Float.parseFloat(memoria2);
 			resultadoRaiz = (float) (Math.sqrt(numero1));
 			mostra_resultado = Float.toString(resultadoRaiz);
 			texField_insertDados.setText(mostra_resultado);
