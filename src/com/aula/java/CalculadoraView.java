@@ -5,7 +5,11 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 //import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -44,9 +48,9 @@ public class CalculadoraView extends JFrame implements ActionListener {
 	String sinal = "";
 	String mostra_resultado;
 	float resultadoSoma = 0;
-	float resultadoResta = 0;
-	float resultadoMultiplicacion = 0;
-	float resultadoDivision = 0;
+	float resultadoSub = 0;
+	float resultadoMultiplicacao = 0;
+	float resultadoDivisao = 0;
 	float resultadoRaiz = 0;
 	float numero1 = 0;
 	float numero2 = 0;
@@ -213,69 +217,67 @@ public class CalculadoraView extends JFrame implements ActionListener {
 		if (((JButton) e.getSource()).equals(button1)) {
 			texField_insertDados.setText("" + texField_insertDados.getText() + "1");
 			label_mostraValores_Acima.setText("" + texField_insertDados.getText());
-			
+
 		}
 
 		if (((JButton) e.getSource()).equals(button2)) {
 			texField_insertDados.setText("" + texField_insertDados.getText() + "2");
 			label_mostraValores_Acima.setText("" + texField_insertDados.getText());
-			
 
 		}
 		if (((JButton) e.getSource()).equals(button3)) {
 			texField_insertDados.setText("" + texField_insertDados.getText() + "3");
 			label_mostraValores_Acima.setText("" + texField_insertDados.getText());
-		
+
 		}
 
 		if (((JButton) e.getSource()).equals(button4)) {
 			texField_insertDados.setText("" + texField_insertDados.getText() + "4");
 			label_mostraValores_Acima.setText("" + texField_insertDados.getText());
-			
+
 		}
 		if (((JButton) e.getSource()).equals(button5)) {
 			texField_insertDados.setText("" + texField_insertDados.getText() + "5");
 			label_mostraValores_Acima.setText("" + texField_insertDados.getText());
-			
+
 		}
 		if (((JButton) e.getSource()).equals(button6)) {
 			texField_insertDados.setText("" + texField_insertDados.getText() + "6");
 			label_mostraValores_Acima.setText("" + texField_insertDados.getText());
-			
+
 		}
 		if (((JButton) e.getSource()).equals(button7)) {
 			texField_insertDados.setText("" + texField_insertDados.getText() + "7");
 			label_mostraValores_Acima.setText("" + texField_insertDados.getText());
-		
+
 		}
 		if (((JButton) e.getSource()).equals(button8)) {
 			texField_insertDados.setText("" + texField_insertDados.getText() + "8");
 			label_mostraValores_Acima.setText("" + texField_insertDados.getText());
-			
+
 		}
 		if (((JButton) e.getSource()).equals(button9)) {
 			texField_insertDados.setText("" + texField_insertDados.getText() + "9");
 			label_mostraValores_Acima.setText("" + texField_insertDados.getText());
-			
+
 		}
 		if (((JButton) e.getSource()).equals(button10)) {
 			texField_insertDados.setText("" + texField_insertDados.getText() + "0");
 			label_mostraValores_Acima.setText("" + texField_insertDados.getText());
-			
+
 		}
 		if (((JButton) e.getSource()).equals(button11) && button11 != null) {
 			texField_insertDados.setText("" + texField_insertDados.getText() + ".");
 			label_mostraValores_Acima.setText("" + texField_insertDados.getText());
 			button11.setEnabled(false);
 		}
-	
 
 		if (((JButton) e.getSource()).equals(buttonSoma)) {
 			if (texField_insertDados.getText().equals("")) {
 
 				System.runFinalization();
 				texField_insertDados.setText("");
-				
+
 			} else {
 
 				sinal = "Soma";
@@ -293,7 +295,6 @@ public class CalculadoraView extends JFrame implements ActionListener {
 
 				System.runFinalization();
 				texField_insertDados.setText("");
-			
 
 			} else {
 
@@ -312,7 +313,7 @@ public class CalculadoraView extends JFrame implements ActionListener {
 
 				System.runFinalization();
 				texField_insertDados.setText("");
-			
+
 			} else {
 
 				sinal = "Multiplicacao";
@@ -320,7 +321,7 @@ public class CalculadoraView extends JFrame implements ActionListener {
 				memoria1 = texField_insertDados.getText();
 				numero1 = Float.parseFloat(memoria1);
 				texField_insertDados.setText("");
-				
+
 				button11.setEnabled(true);
 
 			}
@@ -330,7 +331,6 @@ public class CalculadoraView extends JFrame implements ActionListener {
 
 				System.runFinalization();
 				texField_insertDados.setText("");
-	
 
 			} else {
 
@@ -339,7 +339,7 @@ public class CalculadoraView extends JFrame implements ActionListener {
 				memoria1 = texField_insertDados.getText();
 				numero1 = Float.parseFloat(memoria1);
 				texField_insertDados.setText("");
-				
+
 				button11.setEnabled(true);
 
 			}
@@ -350,7 +350,6 @@ public class CalculadoraView extends JFrame implements ActionListener {
 
 				System.runFinalization();
 				texField_insertDados.setText("");
-			
 
 			} else {
 
@@ -359,7 +358,7 @@ public class CalculadoraView extends JFrame implements ActionListener {
 				memoria1 = texField_insertDados.getText();
 				numero1 = Float.parseFloat(memoria1);
 				texField_insertDados.setText("");
-				
+
 				button11.setEnabled(true);
 
 			}
@@ -377,7 +376,7 @@ public class CalculadoraView extends JFrame implements ActionListener {
 
 			numero1 = 0;
 			numero2 = 0;
-			
+
 			button11.setEnabled(true);
 		}
 		if (((JButton) e.getSource()).equals(buttonlimpar)) {
@@ -389,43 +388,116 @@ public class CalculadoraView extends JFrame implements ActionListener {
 	}
 
 	public void operacao() {
+
+	
+
+		
+
 		if (sinal == "Soma") {
 			memoria2 = texField_insertDados.getText();
 			numero2 = Float.parseFloat(memoria2);
 			resultadoSoma = numero1 + numero2;
 			mostra_resultado = Float.toString(resultadoSoma);
 			texField_insertDados.setText(mostra_resultado);
+			
+			FileWriter arquivo;
+			try {
+				arquivo = new FileWriter("C:\\Soma.txt");
+				PrintWriter gravarArquivo = new PrintWriter(arquivo);
+				
+				gravarArquivo.printf(numero1 +" + "+numero2 +" = "+resultadoSoma+"%n");
+				
+				arquivo.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 		} else if (sinal == "Subtracao") {
 
 			memoria2 = texField_insertDados.getText();
 			numero2 = Float.parseFloat(memoria2);
-			resultadoResta = numero1 - numero2;
-			mostra_resultado = Float.toString(resultadoResta);
+			resultadoSub = numero1 - numero2;
+			mostra_resultado = Float.toString(resultadoSub);
 			texField_insertDados.setText(mostra_resultado);
+			
+			FileWriter arquivo;
+			try {
+				arquivo = new FileWriter("C:\\Subtracao.txt");
+				PrintWriter gravarArquivo = new PrintWriter(arquivo);
+				gravarArquivo.printf(numero1 +" - "+numero2 +" = "+resultadoSub+"%n");
+				
+				arquivo.close();
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 		} else if (sinal == "Multiplicacao") {
 
 			memoria2 = texField_insertDados.getText();
 			numero2 = Float.parseFloat(memoria2);
-			resultadoMultiplicacion = numero1 * numero2;
-			mostra_resultado = Float.toString(resultadoMultiplicacion);
+			resultadoMultiplicacao = numero1 * numero2;
+			mostra_resultado = Float.toString(resultadoMultiplicacao);
 			texField_insertDados.setText(mostra_resultado);
+			
+			FileWriter arquivo;
+			try {
+				arquivo = new FileWriter("C:\\Multiplicacao.txt");
+				PrintWriter gravarArquivo = new PrintWriter(arquivo);
+				
+				gravarArquivo.printf(numero1 +" * "+numero2 +" = "+resultadoMultiplicacao+"%n");
+				
+				arquivo.close();
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 		} else if (sinal == "Divisao") {
 
 			memoria2 = texField_insertDados.getText();
 			numero2 = Float.parseFloat(memoria2);
-			resultadoDivision = numero1 / numero2;
-			mostra_resultado = Float.toString(resultadoDivision);
+			resultadoDivisao = numero1 / numero2;
+			mostra_resultado = Float.toString(resultadoDivisao);
 			texField_insertDados.setText(mostra_resultado);
+			
+			FileWriter arquivo;
+			try {
+				arquivo = new FileWriter("C:\\Divisao.txt");
+				PrintWriter gravarArquivo = new PrintWriter(arquivo);
+				
+				gravarArquivo.printf(numero1 +" / "+numero2 +" = "+resultadoDivisao+"%n");
+				
+				arquivo.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 		} else if (sinal == "Raiz") {
-		     //memoria2 = texFieldmostrar.getText(); 
-		     //numero2=Float.parseFloat(memoria2);
+			// memoria2 = texFieldmostrar.getText();
+			// numero2=Float.parseFloat(memoria2);
 			resultadoRaiz = (float) (Math.sqrt(numero1));
 			mostra_resultado = Float.toString(resultadoRaiz);
 			texField_insertDados.setText(mostra_resultado);
+			
+			FileWriter arquivo;
+			try {
+				arquivo = new FileWriter("C:\\Raiz.txt");
+				PrintWriter gravarArquivo = new PrintWriter(arquivo);
+				
+				gravarArquivo.printf(numero1 +" (√) "+resultadoRaiz+"%n");
+				
+				arquivo.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
+		
+		
 	}
 }
