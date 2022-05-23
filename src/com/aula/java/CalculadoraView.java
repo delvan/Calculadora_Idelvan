@@ -43,17 +43,7 @@ public class CalculadoraView extends JFrame implements ActionListener {
 	private JButton buttonlimpar;
 	private JLabel label_mostraValores_Acima;
 
-	String memoria1 = "";
-	String memoria2 = "";
-	String sinal = "";
-	String mostra_resultado;
-	float resultadoSoma = 0;
-	float resultadoSub = 0;
-	float resultadoMultiplicacao = 0;
-	float resultadoDivisao = 0;
-	float resultadoRaiz = 0;
-	float numero1 = 0;
-	float numero2 = 0;
+	CalculadoraModel calcModel = new CalculadoraModel();
 
 	/**
 	 * Launch the application.
@@ -78,7 +68,7 @@ public class CalculadoraView extends JFrame implements ActionListener {
 	public CalculadoraView() {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 401, 318);
+		setBounds(100, 100, 428, 368);
 		contentPane = new JPanel();
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -210,6 +200,20 @@ public class CalculadoraView extends JFrame implements ActionListener {
 		label_mostraValores_Acima.setBounds(48, 18, 259, 14);
 		contentPane.add(label_mostraValores_Acima);
 
+		JButton btnHistorico = new JButton("Histórico");
+		btnHistorico.setBackground(Color.WHITE);
+		btnHistorico.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				HistoricoView hist = new HistoricoView();
+				hist.show();
+
+			}
+		});
+		btnHistorico.setBounds(58, 278, 280, 23);
+		contentPane.add(btnHistorico);
+
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -280,9 +284,9 @@ public class CalculadoraView extends JFrame implements ActionListener {
 
 			} else {
 
-				sinal = "Soma";
-				memoria1 = texField_insertDados.getText();
-				numero1 = Float.parseFloat(memoria1);
+				calcModel.setSinal("Soma");
+				calcModel.setMemoria1(texField_insertDados.getText());
+				calcModel.setNumero1(Float.parseFloat(calcModel.getMemoria1()));
 				label_mostraValores_Acima.setText("" + texField_insertDados.getText() + " +");
 				texField_insertDados.setText("");
 				button11.setEnabled(true);
@@ -298,10 +302,10 @@ public class CalculadoraView extends JFrame implements ActionListener {
 
 			} else {
 
-				sinal = "Subtracao";
+				calcModel.setSinal("Subtracao");
 				label_mostraValores_Acima.setText("" + texField_insertDados.getText() + "-");
-				memoria1 = texField_insertDados.getText();
-				numero1 = Float.parseFloat(memoria1);
+				calcModel.setMemoria1(texField_insertDados.getText());
+				calcModel.setNumero1(Float.parseFloat(calcModel.getMemoria1()));
 				texField_insertDados.setText("");
 				button11.setEnabled(true);
 
@@ -316,10 +320,10 @@ public class CalculadoraView extends JFrame implements ActionListener {
 
 			} else {
 
-				sinal = "Multiplicacao";
+				calcModel.setSinal("Multiplicacao");
 				label_mostraValores_Acima.setText("" + texField_insertDados.getText() + " x");
-				memoria1 = texField_insertDados.getText();
-				numero1 = Float.parseFloat(memoria1);
+				calcModel.setMemoria1(texField_insertDados.getText());
+				calcModel.setNumero1(Float.parseFloat(calcModel.getMemoria1()));
 				texField_insertDados.setText("");
 
 				button11.setEnabled(true);
@@ -334,10 +338,10 @@ public class CalculadoraView extends JFrame implements ActionListener {
 
 			} else {
 
-				sinal = "Divisao";
+				calcModel.setSinal("Divisao");
 				label_mostraValores_Acima.setText("" + texField_insertDados.getText() + " /");
-				memoria1 = texField_insertDados.getText();
-				numero1 = Float.parseFloat(memoria1);
+				calcModel.setMemoria1(texField_insertDados.getText());
+				calcModel.setNumero1(Float.parseFloat(calcModel.getMemoria1()));
 				texField_insertDados.setText("");
 
 				button11.setEnabled(true);
@@ -353,10 +357,9 @@ public class CalculadoraView extends JFrame implements ActionListener {
 
 			} else {
 
-				sinal = "Raiz";
+				calcModel.setSinal("Raiz");
 				label_mostraValores_Acima.setText("" + texField_insertDados.getText() + " \u221A");
-				memoria1 = texField_insertDados.getText();
-				numero1 = Float.parseFloat(memoria1);
+				calcModel.setMemoria1(texField_insertDados.getText());
 				texField_insertDados.setText("");
 
 				button11.setEnabled(true);
@@ -368,14 +371,14 @@ public class CalculadoraView extends JFrame implements ActionListener {
 
 			operacao();
 
-			texField_insertDados.setText(mostra_resultado);
+			texField_insertDados.setText(calcModel.getMostra_resultado());
 
 			label_mostraValores_Acima.setText("" + texField_insertDados.getText());
 
-			sinal = "Soma";
+			calcModel.setSinal("Soma");
 
-			numero1 = 0;
-			numero2 = 0;
+			calcModel.setNumero1(0);
+			calcModel.setNumero2(0);
 
 			button11.setEnabled(true);
 		}
@@ -389,115 +392,115 @@ public class CalculadoraView extends JFrame implements ActionListener {
 
 	public void operacao() {
 
-	
+		if (calcModel.getSinal() == "Soma") {
+			calcModel.setMemoria2(texField_insertDados.getText());
+			calcModel.setNumero2(Float.parseFloat(calcModel.getMemoria2()));
+			calcModel.setResultadoSoma((calcModel.getNumero1() + calcModel.getNumero2()));
+			calcModel.setMostra_resultado(Float.toString(calcModel.getResultadoSoma()));
+			texField_insertDados.setText(calcModel.getMostra_resultado());
 
-		
-
-		if (sinal == "Soma") {
-			memoria2 = texField_insertDados.getText();
-			numero2 = Float.parseFloat(memoria2);
-			resultadoSoma = numero1 + numero2;
-			mostra_resultado = Float.toString(resultadoSoma);
-			texField_insertDados.setText(mostra_resultado);
-			
 			FileWriter arquivo;
 			try {
-				arquivo = new FileWriter("C:\\Soma.txt");
+				arquivo = new FileWriter("C:\\soma.txt");
 				PrintWriter gravarArquivo = new PrintWriter(arquivo);
-				
-				gravarArquivo.printf(numero1 +" + "+numero2 +" = "+resultadoSoma+"%n");
-				
+
+				gravarArquivo.printf(calcModel.getNumero1() + " + " + calcModel.getNumero2() + " = "
+						+ calcModel.getResultadoSoma() + "%n");
+
 				arquivo.close();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
-		} else if (sinal == "Subtracao") {
+		} else if (calcModel.getSinal() == "Subtracao") {
 
-			memoria2 = texField_insertDados.getText();
-			numero2 = Float.parseFloat(memoria2);
-			resultadoSub = numero1 - numero2;
-			mostra_resultado = Float.toString(resultadoSub);
-			texField_insertDados.setText(mostra_resultado);
-			
+			calcModel.setMemoria2(texField_insertDados.getText());
+			calcModel.setNumero2(Float.parseFloat(calcModel.getMemoria2()));
+			calcModel.setResultadoSub((calcModel.getNumero1() - calcModel.getNumero2()));
+			calcModel.setMostra_resultado(Float.toString(calcModel.getResultadoSub()));
+			texField_insertDados.setText(calcModel.getMostra_resultado());
+			;
+
 			FileWriter arquivo;
 			try {
-				arquivo = new FileWriter("C:\\Subtracao.txt");
+				arquivo = new FileWriter("C:\\subtracao.txt");
 				PrintWriter gravarArquivo = new PrintWriter(arquivo);
-				gravarArquivo.printf(numero1 +" - "+numero2 +" = "+resultadoSub+"%n");
-				
+				gravarArquivo.printf(calcModel.getNumero1() + " - " + calcModel.getNumero2() + " = "
+						+ calcModel.getResultadoSub() + "%n");
+
 				arquivo.close();
-				
+
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
-		} else if (sinal == "Multiplicacao") {
+		} else if (calcModel.getSinal() == "Multiplicacao") {
 
-			memoria2 = texField_insertDados.getText();
-			numero2 = Float.parseFloat(memoria2);
-			resultadoMultiplicacao = numero1 * numero2;
-			mostra_resultado = Float.toString(resultadoMultiplicacao);
-			texField_insertDados.setText(mostra_resultado);
-			
+			calcModel.setMemoria2(texField_insertDados.getText());
+			calcModel.setNumero2(Float.parseFloat(calcModel.getMemoria2()));
+			calcModel.setResultadoMultiplicacao((calcModel.getNumero1() * calcModel.getNumero2()));
+			calcModel.setMostra_resultado(Float.toString(calcModel.getResultadoMultiplicacao()));
+			texField_insertDados.setText(calcModel.getMostra_resultado());
+
 			FileWriter arquivo;
 			try {
-				arquivo = new FileWriter("C:\\Multiplicacao.txt");
+				arquivo = new FileWriter("C:\\multiplicacao.txt");
 				PrintWriter gravarArquivo = new PrintWriter(arquivo);
-				
-				gravarArquivo.printf(numero1 +" * "+numero2 +" = "+resultadoMultiplicacao+"%n");
-				
+
+				gravarArquivo.printf(calcModel.getNumero1() + " * " + calcModel.getNumero2() + " = "
+						+ calcModel.getResultadoMultiplicacao() + "%n");
+
 				arquivo.close();
-				
+
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
-		} else if (sinal == "Divisao") {
+		} else if (calcModel.getSinal() == "Divisao") {
 
-			memoria2 = texField_insertDados.getText();
-			numero2 = Float.parseFloat(memoria2);
-			resultadoDivisao = numero1 / numero2;
-			mostra_resultado = Float.toString(resultadoDivisao);
-			texField_insertDados.setText(mostra_resultado);
-			
+			calcModel.setMemoria2(texField_insertDados.getText());
+			calcModel.setNumero2(Float.parseFloat(calcModel.getMemoria2()));
+			calcModel.setResultadoDivisao((calcModel.getNumero1() / calcModel.getNumero2()));
+			calcModel.setMostra_resultado(Float.toString(calcModel.getResultadoDivisao()));
+			texField_insertDados.setText(calcModel.getMostra_resultado());
+
 			FileWriter arquivo;
 			try {
-				arquivo = new FileWriter("C:\\Divisao.txt");
+				arquivo = new FileWriter("C:\\divisao.txt");
 				PrintWriter gravarArquivo = new PrintWriter(arquivo);
-				
-				gravarArquivo.printf(numero1 +" / "+numero2 +" = "+resultadoDivisao+"%n");
-				
+
+				gravarArquivo.printf(calcModel.getNumero1() + " / " + calcModel.getNumero2() + " = "
+						+ calcModel.getResultadoDivisao() + "%n");
+
 				arquivo.close();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
-		} else if (sinal == "Raiz") {
+		} else if (calcModel.getSinal() == "Raiz") {
 			// memoria2 = texFieldmostrar.getText();
 			// numero2=Float.parseFloat(memoria2);
-			resultadoRaiz = (float) (Math.sqrt(numero1));
-			mostra_resultado = Float.toString(resultadoRaiz);
-			texField_insertDados.setText(mostra_resultado);
-			
+			calcModel.setResultadoRaiz((float) (Math.sqrt(calcModel.getNumero1())));
+			calcModel.setMostra_resultado(Float.toString(calcModel.getResultadoRaiz()));
+			texField_insertDados.setText(calcModel.getMostra_resultado());
+
 			FileWriter arquivo;
 			try {
-				arquivo = new FileWriter("C:\\Raiz.txt");
+				arquivo = new FileWriter("C:\\raiz.txt");
 				PrintWriter gravarArquivo = new PrintWriter(arquivo);
-				
-				gravarArquivo.printf(numero1 +" (√) "+resultadoRaiz+"%n");
-				
+
+				gravarArquivo.printf(calcModel.getNumero1() + " (√) " + calcModel.getResultadoRaiz() + "%n");
+
 				arquivo.close();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		
-		
+
 	}
 }
